@@ -2,13 +2,15 @@
 
 ## 📌 Sobre o projeto
 
-O Intellux é uma aplicação web que utiliza Inteligência Artificial para analisar conteúdos de forma automática, fornecendo insights relevantes como:
+É uma aplicação full-stack que utiliza Inteligência Artificial generativa para analisar conteúdos de redes sociais a partir de uma URL de post.
 
-- 📊 Análise de sentimento
-- 🧠 Insights estratégicos
-- 🚀 Recomendações de melhoria
+O projeto consiste em construir uma solução full-stack capaz de consultar dados do Instagram e apresentá-los no frontend em formato de relatório visual.
 
-O objetivo do projeto é centralizar o processo de análise em uma única interface, tornando mais simples e eficiente a tomada de decisões baseada em dados.
+O objetivo é transformar dados de engajamento em insights estratégicos automatizados, simulando um sistema real de análise de performance de conteúdo.
+
+A aplicação integra coleta de dados, processamento via IA e interface web, unindo conceitos de frontend, backend e integração com APIs externas em um único sistema.
+
+Além disso, o projeto demonstra a capacidade de integrar diferentes tecnologias, desenvolver uma interface responsiva e estruturar um fluxo completo de dados entre frontend, backend e serviços externos.
 
 ---
 
@@ -31,24 +33,24 @@ O objetivo do projeto é centralizar o processo de análise em uma única interf
 
 A aplicação segue uma arquitetura cliente-servidor:
 
-Frontend (React)  
-↓  
-Backend (FastAPI)  
-↓  
-API de IA (Google Gemini)  
-↓  
+Frontend (React - Vercel)
+↓
+Backend (FastAPI - Render)
+↓
+API de IA (Google Gemini)
+↓
 Coleta de dados (Apify)
 
 ---
 
 ### 🔄 Fluxo da aplicação
 
-1. Usuário insere a URL de um post do Instagram  
+1. Usuário insere a URL de um post do Instagram 
 2. O frontend envia os dados para o backend  
-3. O backend coleta métricas via Apify  
-4. Os dados são enviados para a IA (Gemini)  
-5. A IA gera insights e recomendações  
-6. O backend organiza a resposta  
+3. O backend coleta métricas via Apify 
+4. Os dados são enviados para a IA (Gemini) 
+5. A IA gera insights e recomendações
+6. O backend organiza a resposta 
 7. O frontend exibe os resultados  
 
 ---
@@ -59,10 +61,12 @@ Coleta de dados (Apify)
 - React
 - Vite
 - Axios
+- Vercel (deploy)
 
 ### Backend
 - Python
 - FastAPI
+- Render (deploy)
 
 ### Inteligência Artificial
 - Google Gemini
@@ -74,17 +78,15 @@ Coleta de dados (Apify)
 
 ## ▶️ Como rodar o projeto localmente
 
-### 🔹 1. Clone o repositório
+🔹 1. Clone o repositório
 
 ```bash
 git clone https://github.com/samarapalomalr/intellux.git
-cd intellux/frontend
 
-🔹 2. Instale as dependências
+🔹 2. Backend
 
-npm install
-
-🔹 3. Configure as variáveis de ambiente
+cd backend
+pip install -r requirements.txt
 
 Crie um arquivo `.env` dentro da pasta `backend/` com:
 
@@ -96,20 +98,23 @@ AI_PROVIDER=gemini
 GEMINI_API_KEY=sua_chave_gemini
 GEMINI_MODEL=gemini-2.5-flash
 
-🔹 4. Execute o projeto no diretorio do frontend 
+Execute: uvicorn app.main:app --reload
 
-npm run start
+🔹 3. Frontend
 
-🔹 5. Acesse no navegador
+cd frontend
+npm install
+npm run dev
+
+🔹 4. Acesse no navegador
 
 http://localhost:5173
 
-✅ Observações
+## 🌐 Acesso ao sistema
 
-O comando npm run start inicia frontend + backend simultaneamente
-Certifique-se de ter instalado:
-Node.js
-Python 3.10+
+Você pode acessar o sistema diretamente em produção, sem precisar rodar localmente: 
+
+https://intellux-project.vercel.app/
 
 🧠 Decisões Técnicas
 
@@ -118,19 +123,20 @@ Uso de FastAPI pela performance e facilidade de integração
 Uso de IA generativa para análise automatizada
 Estrutura modular para facilitar manutenção e escalabilidade
 Uso de proxy no Vite para integração local entre front e back
+Deploy separado:
+    Frontend → Vercel
+    Backend → Render
 
 ⚠️ Limitações
 
-Dependência de APIs externas (Apify e Gemini)
+Dependência de APIs externas (Apify e Gemini), que podem impactar a disponibilidade e o tempo de resposta
+Em alguns casos, o sistema pode apresentar instabilidade momentânea na primeira requisição, sendo necessário clicar novamente em “Analisar” para obter os insights corretamente
 Resultados podem variar dependendo do modelo de IA
-Não possui autenticação de usuários
 
 🔮 Próximos Passos
 
 Salvar histórico de análises
-Criar dashboard com gráficos
 Melhorar score de engajamento
-Deploy em nuvem (Vercel + Render)
 
 📄 Documentação
 
