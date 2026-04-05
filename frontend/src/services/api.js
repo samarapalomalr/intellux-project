@@ -7,7 +7,7 @@ import axios from "axios";
 // Isso evita problemas de CORS e facilita deploy
 
 const api = axios.create({
-  baseURL: "", // usa o proxy do vite.config.js
+  baseURL: "https://intellux-project-1.onrender.com", // usa o proxy do vite.config.js
   timeout: 15000,
   headers: {
     "Content-Type": "application/json",

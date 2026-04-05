@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 from app.analyze import router as analyze_router
 
@@ -8,12 +9,21 @@ app = FastAPI(
     version="1.0.0"
 )
 
+# -----------------------------
+# CORS (🔥 ESSENCIAL)
+# -----------------------------
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # depois você pode restringir
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # -----------------------------
 # ROTAS
 # -----------------------------
 app.include_router(analyze_router)
-
 
 # -----------------------------
 # HEALTH CHECK
