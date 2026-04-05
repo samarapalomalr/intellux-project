@@ -384,3 +384,4 @@ zarr==2.18.3
 zict==3.0.0
 zipp==3.19.2
 zopfli==0.2.3.post1
+google-genai
