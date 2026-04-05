@@ -14,7 +14,7 @@ export function useAnalyze() {
   const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
   // -----------------------------
-  // ANALYZE (com retry leve)
+  // ANALYZE (com retry leve e controlado)
   // -----------------------------
   const analyze = async (post_url) => {
     if (!post_url || post_url.trim() === "") {
@@ -22,16 +22,16 @@ export function useAnalyze() {
       return;
     }
 
+    const url = post_url.trim();
+
     setLoading(true);
     setError(null);
     setData(null);
 
-    const url = post_url.trim();
-
-    let attempts = 0;
     const maxAttempts = 2;
+    let attempts = 0;
 
-    while (attempts <= maxAttempts) {
+    while (attempts < maxAttempts) {
       try {
         const response = await api.post("/analyze", {
           post_url: url,
@@ -40,7 +40,11 @@ export function useAnalyze() {
         // -----------------------------
         // validação defensiva
         // -----------------------------
-        if (!response?.data) {
+        if (!response) {
+          throw new Error("Sem resposta do servidor");
+        }
+
+        if (!response.data) {
           throw new Error("Resposta vazia da API");
         }
 
@@ -48,32 +52,42 @@ export function useAnalyze() {
           throw new Error("Formato de resposta inválido");
         }
 
+        // -----------------------------
+        // sucesso
+        // -----------------------------
         setData(response.data);
         setLoading(false);
         return;
+
       } catch (err) {
         attempts++;
 
-        console.error(`[ANALYZE ERROR] tentativa ${attempts}`, err.message);
+        console.warn(
+          `[ANALYZE ERROR] tentativa ${attempts}/${maxAttempts}:`,
+          err.message
+        );
 
         // -----------------------------
-        // última tentativa falhou
+        // se ainda pode tentar novamente
         // -----------------------------
-        if (attempts > maxAttempts) {
-          setError(
-            err.message ||
-              "❌ Não foi possível processar o post no momento. Tente novamente."
-          );
-          setLoading(false);
-          return;
+        if (attempts < maxAttempts) {
+          setError("🔁 Servidor instável... tentando novamente");
+
+          // espera antes do retry (evita flood no backend)
+          await sleep(2500);
+          continue;
         }
 
         // -----------------------------
-        // retry com delay (backend dormindo / instabilidade)
+        // falhou todas as tentativas
         // -----------------------------
-        setError("🔁 Servidor demorando para responder... tentando novamente");
+        setError(
+          err.message ||
+            "❌ Não foi possível processar o post no momento. Tente novamente."
+        );
 
-        await sleep(2000);
+        setLoading(false);
+        return;
       }
     }
   };

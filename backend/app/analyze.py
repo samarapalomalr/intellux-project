@@ -26,22 +26,37 @@ def analyze_post(request: AnalyzeRequest):
         # -----------------------------
         post_data = fetch_instagram_data(request.post_url)
 
+        # fallback defensivo (NUNCA deixar quebrar pipeline)
         if not post_data:
-            raise HTTPException(
-                status_code=500,
-                detail="Não foi possível obter dados do Instagram."
-            )
+            post_data = {
+                "caption": "",
+                "likes": 0,
+                "comments": 0,
+                "hashtags": []
+            }
 
         # -----------------------------
-        # ANALISAR COM IA + BACKEND
+        # ANALISAR COM IA
         # -----------------------------
         result = analyze_post_with_ai(post_data)
 
-        # ✅ AGORA RETORNA TUDO (CORRETO)
+        # validação final (evita resposta quebrada)
+        if not result:
+            raise HTTPException(
+                status_code=500,
+                detail="Falha ao gerar análise da IA."
+            )
+
         return result
 
+    except HTTPException:
+        # re-raise HTTP errors (não mascarar)
+        raise
+
     except Exception as e:
+        print(f"[ANALYZE ERROR] {str(e)}")
+
         raise HTTPException(
             status_code=500,
-            detail=f"Erro interno na análise: {str(e)}"
+            detail="Erro interno na análise. Tente novamente em alguns segundos."
         )
