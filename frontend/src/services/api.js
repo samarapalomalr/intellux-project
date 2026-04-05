@@ -1,26 +1,71 @@
-// src/services/api.js
-
 import axios from "axios";
 
-// ⚠️ IMPORTANTE:
-// Com o proxy do Vite, NÃO usamos http://127.0.0.1:8000 aqui
-// Isso evita problemas de CORS e facilita deploy
+// 🌐 Backend (Render)
+const BASE_URL = "https://intellux-project-1.onrender.com";
 
 const api = axios.create({
-  baseURL: "https://intellux-project-1.onrender.com", // usa o proxy do vite.config.js
-  timeout: 15000,
+  baseURL: BASE_URL,
+  timeout: 30000, // ⬆️ mais tempo para cold start do Render
   headers: {
     "Content-Type": "application/json",
   },
 });
 
 // -----------------------------
+// RETRY CONFIG
+// -----------------------------
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+// -----------------------------
+// 🔥 WAKE UP BACKEND (PING AUTOMÁTICO)
+// -----------------------------
+export const wakeUpBackend = async () => {
+  try {
+    console.log("🔄 Acordando backend...");
+
+    await fetch(BASE_URL + "/", {
+      method: "GET",
+    });
+
+    console.log("✅ Backend acordado");
+  } catch (err) {
+    console.log("⚠️ Backend ainda iniciando...");
+  }
+};
+
+// -----------------------------
 // RESPONSE INTERCEPTOR
 // -----------------------------
 api.interceptors.response.use(
   (response) => response,
-  (error) => {
-    // 🔴 Erro vindo do backend
+  async (error) => {
+    const config = error.config;
+
+    // 🔁 Inicializa contador de retry
+    if (!config._retryCount) {
+      config._retryCount = 0;
+    }
+
+    // -----------------------------
+    // 🔁 RETRY AUTOMÁTICO (até 2x)
+    // -----------------------------
+    if (
+      config._retryCount < 2 &&
+      (!error.response || error.code === "ECONNABORTED")
+    ) {
+      config._retryCount++;
+
+      console.warn(
+        `🔁 Tentativa ${config._retryCount} de 2... aguardando backend responder`
+      );
+
+      await sleep(2000);
+      return api(config);
+    }
+
+    // -----------------------------
+    // 🔴 ERRO COM RESPOSTA DO BACKEND
+    // -----------------------------
     if (error.response) {
       console.error("[API ERROR]", {
         status: error.response.status,
@@ -35,16 +80,20 @@ api.interceptors.response.use(
       throw new Error(message);
     }
 
-    // 🌐 Sem resposta (backend offline, timeout, etc)
+    // -----------------------------
+    // 🌐 ERRO DE CONEXÃO / BACKEND OFFLINE
+    // -----------------------------
     if (error.request) {
       console.error("[NETWORK ERROR]", error.request);
 
       throw new Error(
-        "Não foi possível conectar ao servidor. Verifique se o backend está rodando."
+        "Servidor demorou para responder. Ele pode estar iniciando, tente novamente em alguns segundos."
       );
     }
 
-    // ⚠️ Erro inesperado
+    // -----------------------------
+    // ⚠️ ERRO INESPERADO
+    // -----------------------------
     console.error("[UNKNOWN ERROR]", error.message);
 
     throw new Error("Erro inesperado ao processar a requisição");

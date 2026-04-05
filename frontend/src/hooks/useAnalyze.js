@@ -8,9 +8,17 @@ export function useAnalyze() {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
 
+  // -----------------------------
+  // UTIL: delay (retry)
+  // -----------------------------
+  const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+  // -----------------------------
+  // ANALYZE (com retry leve)
+  // -----------------------------
   const analyze = async (post_url) => {
     if (!post_url || post_url.trim() === "") {
-      setError("Informe uma URL válida");
+      setError("⚠️ Informe uma URL válida");
       return;
     }
 
@@ -18,25 +26,61 @@ export function useAnalyze() {
     setError(null);
     setData(null);
 
-    try {
-      const response = await api.post("/analyze", {
-        post_url: post_url.trim(),
-      });
+    const url = post_url.trim();
 
-      // validação defensiva (nível profissional)
-      if (!response.data || !response.data.metrics) {
-        throw new Error("Resposta inválida da API");
+    let attempts = 0;
+    const maxAttempts = 2;
+
+    while (attempts <= maxAttempts) {
+      try {
+        const response = await api.post("/analyze", {
+          post_url: url,
+        });
+
+        // -----------------------------
+        // validação defensiva
+        // -----------------------------
+        if (!response?.data) {
+          throw new Error("Resposta vazia da API");
+        }
+
+        if (!response.data.metrics) {
+          throw new Error("Formato de resposta inválido");
+        }
+
+        setData(response.data);
+        setLoading(false);
+        return;
+      } catch (err) {
+        attempts++;
+
+        console.error(`[ANALYZE ERROR] tentativa ${attempts}`, err.message);
+
+        // -----------------------------
+        // última tentativa falhou
+        // -----------------------------
+        if (attempts > maxAttempts) {
+          setError(
+            err.message ||
+              "❌ Não foi possível processar o post no momento. Tente novamente."
+          );
+          setLoading(false);
+          return;
+        }
+
+        // -----------------------------
+        // retry com delay (backend dormindo / instabilidade)
+        // -----------------------------
+        setError("🔁 Servidor demorando para responder... tentando novamente");
+
+        await sleep(2000);
       }
-
-      setData(response.data);
-    } catch (err) {
-      console.error("[ANALYZE ERROR]", err.message);
-      setError(err.message || "Erro ao analisar o post");
-    } finally {
-      setLoading(false);
     }
   };
 
+  // -----------------------------
+  // RESET STATE
+  // -----------------------------
   const reset = () => {
     setData(null);
     setError(null);
