@@ -1,3 +1,4 @@
+// src/pages/Home.jsx
 import TextInput from "../components/TextInput";
 import ResultCard from "../components/ResultCard";
 import Loader from "../components/Loader";
@@ -6,25 +7,24 @@ import { useAnalyze } from "../hooks/useAnalyze";
 export default function Home() {
   const { analyze, data, loading, error, reset } = useAnalyze();
 
-  // Função para resetar a interface e os dados
-  const handleNewAnalysis = () => {
-    reset(); // Limpa os dados no Hook (data, error, etc)
-  };
-
   return (
     <div className="container">
       {/* HEADER */}
-      <div style={{ marginBottom: 40, textAlign: 'center' }}>
+      <div style={{ marginBottom: 40 }}>
         <h1 className="title">Intellux Analyzer</h1>
         <p className="subtitle">
           Todas as métricas e insights em uma única plataforma com IA
         </p>
       </div>
 
-      {/* INPUT - Só aparece se não houver dados ou se estiver carregando */}
-      {(!data || loading) && (
-        <TextInput onSubmit={analyze} loading={loading} />
-      )}
+      {/* INPUT - A 'key' dinâmica garante a limpeza. 
+          Quando 'data' muda para null no reset, o componente reinicia limpo.
+      */}
+      <TextInput 
+        key={data ? "analisado" : "novo"} 
+        onSubmit={analyze} 
+        loading={loading} 
+      />
 
       {/* ERRO */}
       {error && (
@@ -41,13 +41,9 @@ export default function Home() {
         <>
           <ResultCard data={data} />
 
-          <div style={{ marginTop: 30, textAlign: 'center', marginBottom: 40 }}>
-            <button 
-              className="button" 
-              onClick={handleNewAnalysis}
-              style={{ maxWidth: '300px' }}
-            >
-              🔄 Nova análise
+          <div style={{ marginTop: 20 }}>
+            <button className="button" onClick={reset}>
+              Nova análise
             </button>
           </div>
         </>
