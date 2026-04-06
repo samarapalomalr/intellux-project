@@ -1,20 +1,19 @@
 import requests
 from app.config import settings
 
-
-# Endpoint do Apify Instagram Scraper (actor público)
+# Endpoint do Apify Instagram Scraper
 APIFY_URL = "https://api.apify.com/v2/acts/apify~instagram-scraper/run-sync-get-dataset-items"
-
 
 def fetch_instagram_data(url: str):
     """
     Busca dados do Instagram via Apify.
-    Retorna um formato padronizado para o backend.
+    Agora captura a imagem de exibição para análise multimodal da IA.
     """
 
     if not settings.APIFY_API_KEY:
         raise Exception("APIFY_API_KEY não configurada no .env")
 
+    # Payload otimizado para posts específicos
     payload = {
         "directUrls": [url],
         "resultsType": "posts",
@@ -31,27 +30,28 @@ def fetch_instagram_data(url: str):
         response.raise_for_status()
         data = response.json()
 
-        # Se não vier nada
         if not data or len(data) == 0:
             return {
                 "caption": "",
                 "likes": 0,
                 "comments": 0,
-                "hashtags": []
+                "hashtags": [],
+                "display_url": None
             }
 
         post = data[0]
 
-        # Normalização (importante para IA funcionar bem)
+        # O Apify retorna 'likesCount' e 'commentsCount' como inteiros.
+        # 'displayUrl' é a imagem do post ou a capa (thumbnail) do Reels/Vídeo.
         return {
             "caption": post.get("caption", "") or "",
-            "likes": post.get("likesCount", 0) or 0,
-            "comments": post.get("commentsCount", 0) or 0,
-            "hashtags": post.get("hashtags", []) or []
+            "likes": int(post.get("likesCount", 0) or 0),
+            "comments": int(post.get("commentsCount", 0) or 0),
+            "hashtags": post.get("hashtags", []) or [],
+            "display_url": post.get("displayUrl")
         }
 
     except requests.exceptions.RequestException as e:
         raise Exception(f"Erro ao acessar Apify: {str(e)}")
-
     except Exception as e:
         raise Exception(f"Erro ao processar dados do Instagram: {str(e)}")

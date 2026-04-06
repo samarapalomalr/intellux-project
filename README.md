@@ -81,7 +81,7 @@ Coleta de dados (Apify)
 🔹 1. Clone o repositório
 
 ```bash
-git clone https://github.com/samarapalomalr/intellux.git
+git clone https://github.com/samarapalomalr/data-ai-portfolio
 
 🔹 2. Backend
 
@@ -118,33 +118,33 @@ https://intellux-project.vercel.app/
 
 🧠 Decisões Técnicas
 
-Separação entre frontend e backend para melhor organização
-Uso de FastAPI pela performance e facilidade de integração
-Uso de IA generativa para análise automatizada
-Estrutura modular para facilitar manutenção e escalabilidade
-Uso de proxy no Vite para integração local entre front e back
-Deploy separado:
-    Frontend → Vercel
-    Backend → Render
+- Separação entre frontend e backend para melhor organização
+- Uso de FastAPI pela performance e facilidade de integração
+- Uso de IA generativa para análise automatizada
+- Estrutura modular para facilitar manutenção e escalabilidade
+- Uso de proxy no Vite para integração local entre front e back
+- Deploy separado:
+      Frontend → Vercel
+      Backend → Render
 
 ⚠️ Limitações
 
-Dependência de APIs externas (Apify e Gemini), que podem impactar a disponibilidade e o tempo de resposta
-Em alguns casos, o sistema pode apresentar instabilidade momentânea na primeira requisição, sendo necessário clicar novamente em “Analisar” para obter os insights corretamente
-Resultados podem variar dependendo do modelo de IA
+- Dependência de APIs externas (Apify e Gemini), que podem impactar a disponibilidade e o tempo de resposta
+- Em alguns casos, o sistema pode apresentar instabilidade momentânea na primeira requisição, sendo necessário clicar novamente em “Analisar” para obter os insights corretamente
+- Resultados podem variar dependendo do modelo de IA
 
 🔮 Próximos Passos
 
-Salvar histórico de análises
-Melhorar score de engajamento
+- Salvar histórico de análises
+- Melhorar score de engajamento
 
 📄 Documentação
 
 O projeto contém um arquivo PDF com:
-Explicação da implementação
-Arquitetura do sistema
-Exemplos de uso
-Prints da aplicação
+- Explicação da implementação
+- Arquitetura do sistema
+- Exemplos de uso
+- Prints da aplicação
 
 👩‍💻 Autora
 

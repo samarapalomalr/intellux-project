@@ -1,6 +1,5 @@
 from pydantic import BaseModel
-from typing import List
-
+from typing import List, Optional
 
 # -----------------------------
 # REQUEST
@@ -8,20 +7,19 @@ from typing import List
 class AnalyzeRequest(BaseModel):
     post_url: str
 
-
 # -----------------------------
-# METRICS (SEM FOLLOWERS)
+# METRICS
 # -----------------------------
 class Metrics(BaseModel):
     likes: int = 0
     comments: int = 0
-
 
 # -----------------------------
 # RESPONSE
 # -----------------------------
 class AnalyzeResponse(BaseModel):
     metrics: Metrics
+    display_url: Optional[str] = None  # URL da imagem de capa para o frontend/IA
     engagement_score: float
     viral_classification: str
     content_type: str
