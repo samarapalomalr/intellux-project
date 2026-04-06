@@ -8,13 +8,13 @@
   --text: #0f172a;
   --muted: #64748b;
 
-  /* AZUL NEON VÍVIDO */
-  --primary: #00f2ff; 
-  --primary-glow: rgba(0, 242, 255, 0.3);
-  --secondary: #0ea5e9;
+  /* 🟢 VERDE NEON (Cor Primária - Botões e Detalhes) */
+  --primary: #BFFF12; 
+  --primary-glow: rgba(191, 255, 18, 0.3);
   
-  /* Verde Neon (mantido para destaques específicos) */
-  --neon: #A3FF12;
+  /* 🔵 AZUL NEON (Cor Secundária - Métricas e Foco) */
+  --secondary: #00f2ff;
+  --secondary-glow: rgba(0, 242, 255, 0.3);
 }
 
 * {
@@ -68,8 +68,9 @@ body {
 
 .card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 20px 40px var(--primary-glow);
-  border-color: var(--primary);
+  /* Brilho azul no hover do card para contraste */
+  box-shadow: 0 20px 40px var(--secondary-glow);
+  border-color: var(--secondary);
 }
 
 /* Input */
@@ -91,11 +92,11 @@ body {
 
 .input:focus {
   outline: none;
-  border-color: var(--primary);
-  box-shadow: 0 0 0 4px var(--primary-glow);
+  border-color: var(--secondary);
+  box-shadow: 0 0 0 4px var(--secondary-glow);
 }
 
-/* Button Neon */
+/* 🟢 Button Verde Neon (Analisar) 🟢 */
 .button {
   background: var(--primary);
   border: none;
@@ -103,7 +104,7 @@ body {
   border-radius: 999px;
   font-weight: 700;
   cursor: pointer;
-  color: #0f172a; /* Texto escuro no botão neon para contraste */
+  color: #0f172a; 
   transition: all 0.3s ease;
   box-shadow: 0 4px 15px var(--primary-glow);
 }
@@ -131,7 +132,7 @@ body {
 }
 
 .metric-card:hover {
-  border-color: var(--primary);
+  border-color: var(--secondary);
   transform: translateY(-2px);
 }
 
@@ -142,11 +143,12 @@ body {
   letter-spacing: 1px;
 }
 
+/* 🔵 Valores em Azul Neon 🔵 */
 .metric-value {
   font-size: 24px;
   font-weight: 800;
-  color: var(--primary);
-  text-shadow: 0 0 8px var(--primary-glow);
+  color: var(--secondary);
+  text-shadow: 0 0 8px var(--secondary-glow);
 }
 
 /* Sections */
@@ -165,9 +167,9 @@ body {
   margin-bottom: 10px;
   padding: 14px;
   border-radius: 10px;
+  /* 🟢 Detalhe lateral em Verde Neon 🟢 */
   border-left: 4px solid var(--primary);
   font-size: 0.95rem;
-  /* Animação para cada item da lista */
   animation: slideRight 0.4s ease-out forwards;
 }
 
@@ -176,19 +178,17 @@ body {
   to { opacity: 1; transform: translateX(0); }
 }
 
-/* Badge Neon */
+/* 🟢 Badge Verde Suave (Sem Vermelho) 🟢 */
 .badge {
   display: inline-block;
   padding: 6px 16px;
   border-radius: 999px;
-  background: var(--primary);
+  background: #efffbe; /* Verde suave */
   color: #0f172a;
   font-weight: 700;
   font-size: 0.8rem;
-  box-shadow: 0 4px 10px var(--primary-glow);
+  border: 1px solid rgba(191, 255, 18, 0.2);
 }
-
-.viral-badge { background: #ff4757; color: white; }
 
 /* Loader */
 .loader-highlight {
