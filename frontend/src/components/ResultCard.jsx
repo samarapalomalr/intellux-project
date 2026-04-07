@@ -58,7 +58,7 @@ export default function ResultCard({ data }) {
 
       {/* INSIGHTS */}
       <div className="section">
-        <h3>🧠 Insights Estratégicos</h3>
+        <h3>Insights Estratégicos</h3>
         <ul className="list">
           {insights && insights.length > 0 ? (
             insights.map((item, index) => (
@@ -74,7 +74,7 @@ export default function ResultCard({ data }) {
 
       {/* RECOMMENDATIONS */}
       <div className="section">
-        <h3>🚀 Recomendações </h3>
+        <h3>Recomendações </h3>
         <ul className="list">
           {recommendations && recommendations.length > 0 ? (
             recommendations.map((item, index) => (
