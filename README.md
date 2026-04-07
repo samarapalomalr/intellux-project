@@ -26,13 +26,7 @@ O fluxo de dados foi projetado para ser linear e eficiente:
 
 A aplicação segue uma arquitetura cliente-servidor:
 
-Frontend (React - Vercel)
-↓
-Backend (FastAPI - Render)
-↓
-API de IA (Google Gemini)
-↓
-Coleta de dados (Apify)
+Frontend (React - Vercel) -> Backend (FastAPI - Render) -> API de IA (Google Gemini) -> Coleta de dados (Apify)
 
 ---
 
@@ -71,9 +65,10 @@ Coleta de dados (Apify)
 
 ## ▶️ Como rodar o projeto localmente
 
+```bash
+
 🔹 1. Clone o repositório
 
-```bash
 git clone https://github.com/samarapalomalr/data-ai-portfolio
 
 🔹 2. Backend
@@ -109,6 +104,8 @@ http://localhost:5173
 Você pode acessar o sistema diretamente em produção, sem precisar rodar localmente: 
 
 https://intellux-project.vercel.app/
+
+'''
 
 🧠 Decisões Técnicas
 
