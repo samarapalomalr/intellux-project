@@ -78,7 +78,8 @@ cd backend
 pip install -r requirements.txt
 
 Crie um arquivo .env dentro da pasta backend/ com suas credenciais:
-```env
+
+.env
 APIFY_API_KEY=sua_chave_apify
 
 AI_PROVIDER=gemini
@@ -99,15 +100,15 @@ npm run dev
 
 http://localhost:5173
 
-## 🌐 Acesso ao sistema
+🔹 5. Acesso ao sistema
 
 Você pode acessar o sistema diretamente em produção, sem precisar rodar localmente: 
 
 https://intellux-project.vercel.app/
 
-'''
+```
 
-🧠 Decisões Técnicas
+### 🛠️ Decisões Técnicas
 
 - Separação entre frontend e backend para melhor organização
 - Uso de FastAPI pela performance e facilidade de integração
@@ -118,19 +119,19 @@ https://intellux-project.vercel.app/
       Frontend → Vercel
       Backend → Render
 
-⚠️ Limitações
+### ⚠️ Limitações
 
 - Sincronização de Métricas: Em alguns casos, o número de comentários pode apresentar divergências momentâneas em relação ao post real devido ao cache das APIs de scraping (Apify) ou ao atraso na propagação de dados das próprias redes sociais.
 - Dependência de Terceiros: A velocidade da análise está atrelada ao tempo de resposta das APIs externas, o que pode causar variações no tempo de carregamento.
 - Posts Privados: O sistema só consegue analisar perfis e posts públicos, respeitando as políticas de privacidade das plataformas.
 
-🔮 Próximos Passos
+### 🔮 Próximos Passos
 
 - Sincronização em Tempo Real: Implementar uma rotina de validação dupla para garantir que a contagem de interações (likes/comentários) seja 100% fiel ao momento exato da consulta.
 - Análise de Vídeo (Reels): Expandir a capacidade multimodal para processar frames de vídeos curtos.
 - Benchmark: Comparar o post analisado com a média de engajamento do perfil.
 
-📄 Documentação
+### 📄 Documentação
 
 O projeto contém um arquivo PDF com:
 - Explicação da implementação
@@ -138,11 +139,11 @@ O projeto contém um arquivo PDF com:
 - Exemplos de uso
 - Prints da aplicação
 
-👩‍💻 Autora
+### 👩‍💻 Autora
 
 Projeto desenvolvido por Samara Paloma
 Estudante de Ciência da Computação 
 
-⭐ Considerações finais
+### ⭐ Considerações finais
 
 Este projeto foi desenvolvido com foco em aprendizado prático de integração entre frontend, backend e Inteligência Artificial, priorizando organização, usabilidade e aplicação real.
