@@ -69,7 +69,7 @@ Frontend (React - Vercel) -> Backend (FastAPI - Render) -> API de IA (Google Gem
 
 🔹 1. Clone o repositório
 
-git clone https://github.com/samarapalomalr/data-ai-portfolio
+git clone https://github.com/samarapalomalr/intellux-project
 
 🔹 2. Backend
 
