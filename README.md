@@ -2,30 +2,23 @@
 
 ## 📌 Sobre o projeto
 
-É uma aplicação full-stack que utiliza Inteligência Artificial generativa para analisar conteúdos de redes sociais a partir de uma URL de post.
-
-O projeto consiste em construir uma solução full-stack capaz de consultar dados do Instagram e apresentá-los no frontend em formato de relatório visual.
-
-O objetivo é transformar dados de engajamento em insights estratégicos automatizados, simulando um sistema real de análise de performance de conteúdo.
-
-A aplicação integra coleta de dados, processamento via IA e interface web, unindo conceitos de frontend, backend e integração com APIs externas em um único sistema.
-
-Além disso, o projeto demonstra a capacidade de integrar diferentes tecnologias, desenvolver uma interface responsiva e estruturar um fluxo completo de dados entre frontend, backend e serviços externos.
+O projeto é uma solução Full-Stack de Inteligência de Dados que utiliza IA Generativa e Visão Computacional para analisar redes sociais. Através de uma arquitetura com FastAPI e React, a aplicação automatiza o ciclo completo desde a coleta de métricas brutas até a geração de relatórios. O sistema utiliza o Google Gemini 2.5 Flash para processar legendas e imagens simultaneamente, garantindo insights contextuais profundos. O fluxo transforma interações em pontuações de engajamento e classificações de viralidade com rigor técnico. Tudo é entregue em uma interface moderna e responsiva, projetada para facilitar a leitura de dados estratégicos.
 
 ---
 
 ## 🧠 Funcionalidades
 
-- Inserção de URL de posts do Instagram
-- Coleta automática de métricas (likes, comentários)
-- Processamento via IA generativa
-- Retorno com:
-  - Sentimento
-  - Classificação de viralização
-  - Tipo de conteúdo
-  - Insights
-  - Recomendações
-- Interface moderna, responsiva e interativa
+O fluxo de dados foi projetado para ser linear e eficiente:
+
+1. Entrada: O usuário insere a URL de um post do Instagram na interface.
+
+2. Coleta (Scraping): O backend via FastAPI aciona o Apify para extrair métricas brutas (likes, comentários, legenda e URL da imagem).
+
+3. Processamento Multimodal: Os dados e a imagem do post são enviados ao Google Gemini. A IA "enxerga" o conteúdo visual e lê a legenda simultaneamente.
+
+4. Inteligência: O sistema calcula o Engagement Score com pesos científicos e classifica a viralidade.
+
+5. Entrega: O frontend renderiza um dashboard com métricas neon, sentimentos, insights estratégicos e recomendações de próximos passos.
 
 ---
 
@@ -85,11 +78,11 @@ git clone https://github.com/samarapalomalr/data-ai-portfolio
 
 🔹 2. Backend
 
+Entre na pasta do backend e instale as dependências:
 cd backend
 pip install -r requirements.txt
 
-Crie um arquivo `.env` dentro da pasta `backend/` com:
-
+Crie um arquivo .env dentro da pasta backend/ com suas credenciais:
 ```env
 APIFY_API_KEY=sua_chave_apify
 
@@ -98,7 +91,8 @@ AI_PROVIDER=gemini
 GEMINI_API_KEY=sua_chave_gemini
 GEMINI_MODEL=gemini-2.5-flash
 
-Execute: uvicorn app.main:app --reload
+Importante: Para rodar o servidor, permaneça na pasta backend/ (não entre na pasta app):
+uvicorn app.main:app --reload
 
 🔹 3. Frontend
 
@@ -129,14 +123,15 @@ https://intellux-project.vercel.app/
 
 ⚠️ Limitações
 
-- Dependência de APIs externas (Apify e Gemini), que podem impactar a disponibilidade e o tempo de resposta
-- Em alguns casos, o sistema pode apresentar instabilidade momentânea na primeira requisição, sendo necessário clicar novamente em “Analisar” para obter os insights corretamente
-- Resultados podem variar dependendo do modelo de IA
+- Sincronização de Métricas: Em alguns casos, o número de comentários pode apresentar divergências momentâneas em relação ao post real devido ao cache das APIs de scraping (Apify) ou ao atraso na propagação de dados das próprias redes sociais.
+- Dependência de Terceiros: A velocidade da análise está atrelada ao tempo de resposta das APIs externas, o que pode causar variações no tempo de carregamento.
+- Posts Privados: O sistema só consegue analisar perfis e posts públicos, respeitando as políticas de privacidade das plataformas.
 
 🔮 Próximos Passos
 
-- Salvar histórico de análises
-- Melhorar score de engajamento
+- Sincronização em Tempo Real: Implementar uma rotina de validação dupla para garantir que a contagem de interações (likes/comentários) seja 100% fiel ao momento exato da consulta.
+- Análise de Vídeo (Reels): Expandir a capacidade multimodal para processar frames de vídeos curtos.
+- Benchmark: Comparar o post analisado com a média de engajamento do perfil.
 
 📄 Documentação
 
