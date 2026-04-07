@@ -1,18 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
-  /* Fundo Branco e Texto Escuro */
+  /* White background and dark text */
   --bg: #ffffff;
   --card: #ffffff;
   --section: #f8fafc;
   --text: #0f172a;
   --muted: #64748b;
 
-  /* 🟢 VERDE NEON (Cor Primária - Botões e Detalhes) */
+  /* 🟢 NEON GREEN */
   --primary: #BFFF12; 
   --primary-glow: rgba(191, 255, 18, 0.3);
   
-  /* 🔵 AZUL NEON (Cor Secundária - Métricas e Foco) */
+  /* 🔵 NEON BLUE  */
   --secondary: #00f2ff;
   --secondary-glow: rgba(0, 242, 255, 0.3);
 }
@@ -26,7 +26,7 @@ body {
   font-family: 'Inter', sans-serif;
   background: var(--bg);
   color: var(--text);
-  /* Animação suave de entrada da página */
+  /* Smooth page loading animation */
   animation: fadeIn 0.8s ease-out;
 }
 
@@ -68,7 +68,7 @@ body {
 
 .card:hover {
   transform: translateY(-4px);
-  /* Brilho azul no hover do card para contraste */
+  /* Blue glow on card hover for contrast */
   box-shadow: 0 20px 40px var(--secondary-glow);
   border-color: var(--secondary);
 }
@@ -96,7 +96,7 @@ body {
   box-shadow: 0 0 0 4px var(--secondary-glow);
 }
 
-/* 🟢 Button Verde Neon (Analisar) 🟢 */
+/* 🟢 Neon Green Button (Analyze) 🟢 */
 .button {
   background: var(--primary);
   border: none;
@@ -143,7 +143,7 @@ body {
   letter-spacing: 1px;
 }
 
-/* 🔵 Valores em Azul Neon 🔵 */
+/* 🔵 Values ​​in Neon Blue 🔵 */
 .metric-value {
   font-size: 24px;
   font-weight: 800;
@@ -167,7 +167,7 @@ body {
   margin-bottom: 10px;
   padding: 14px;
   border-radius: 10px;
-  /* 🟢 Detalhe lateral em Verde Neon 🟢 */
+  /* 🟢 Side detail in Neon Green 🟢 */
   border-left: 4px solid var(--primary);
   font-size: 0.95rem;
   animation: slideRight 0.4s ease-out forwards;
@@ -178,12 +178,12 @@ body {
   to { opacity: 1; transform: translateX(0); }
 }
 
-/* 🟢 Badge Verde Suave (Sem Vermelho) 🟢 */
+/* 🟢 Soft Green Badge 🟢 */
 .badge {
   display: inline-block;
   padding: 6px 16px;
   border-radius: 999px;
-  background: #efffbe; /* Verde suave */
+  background: #efffbe; 
   color: #0f172a;
   font-weight: 700;
   font-size: 0.8rem;

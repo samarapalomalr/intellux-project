@@ -14,7 +14,7 @@ export function useAnalyze() {
   const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
   // -----------------------------
-  // ANALYZE (com retry leve e controlado)
+  // ANALYZE 
   // -----------------------------
   const analyze = async (post_url) => {
     if (!post_url || post_url.trim() === "") {
@@ -38,7 +38,7 @@ export function useAnalyze() {
         });
 
         // -----------------------------
-        // validação defensiva
+        // defensive validation
         // -----------------------------
         if (!response) {
           throw new Error("Sem resposta do servidor");
@@ -53,7 +53,7 @@ export function useAnalyze() {
         }
 
         // -----------------------------
-        // sucesso
+        // success
         // -----------------------------
         setData(response.data);
         setLoading(false);
@@ -68,18 +68,18 @@ export function useAnalyze() {
         );
 
         // -----------------------------
-        // se ainda pode tentar novamente
+        // You can still try again
         // -----------------------------
         if (attempts < maxAttempts) {
           setError("🔁 Servidor instável... tentando novamente");
 
-          // espera antes do retry (evita flood no backend)
+          // Wait before retrying (prevents flooding in the backend)
           await sleep(2500);
           continue;
         }
 
         // -----------------------------
-        // falhou todas as tentativas
+        // failed all attempts
         // -----------------------------
         setError(
           err.message ||

@@ -9,7 +9,6 @@ class Settings:
 
     GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
-    # 🔥 FIX IMPORTANTE: modelo mais estável
     GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
 
     APP_NAME = "Intellux AI Backend"

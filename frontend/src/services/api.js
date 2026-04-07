@@ -1,11 +1,11 @@
 import axios from "axios";
 
-// 🌐 Backend (Render)
+// 🌐 Backend 
 const BASE_URL = "https://intellux-project-1.onrender.com";
 
 const api = axios.create({
   baseURL: BASE_URL,
-  timeout: 30000, // ⬆️ mais tempo para cold start do Render
+  timeout: 30000,
   headers: {
     "Content-Type": "application/json",
   },
@@ -17,7 +17,7 @@ const api = axios.create({
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 // -----------------------------
-// 🔥 WAKE UP BACKEND (PING AUTOMÁTICO)
+// 🔥 WAKE UP BACKEND 
 // -----------------------------
 export const wakeUpBackend = async () => {
   try {
@@ -41,13 +41,12 @@ api.interceptors.response.use(
   async (error) => {
     const config = error.config;
 
-    // 🔁 Inicializa contador de retry
     if (!config._retryCount) {
       config._retryCount = 0;
     }
 
     // -----------------------------
-    // 🔁 RETRY AUTOMÁTICO (até 2x)
+    // 🔁 RETRY
     // -----------------------------
     if (
       config._retryCount < 2 &&
@@ -64,7 +63,7 @@ api.interceptors.response.use(
     }
 
     // -----------------------------
-    // 🔴 ERRO COM RESPOSTA DO BACKEND
+    // 🔴 ERROR WITH BACKEND RESPONSE
     // -----------------------------
     if (error.response) {
       console.error("[API ERROR]", {
@@ -81,7 +80,7 @@ api.interceptors.response.use(
     }
 
     // -----------------------------
-    // 🌐 ERRO DE CONEXÃO / BACKEND OFFLINE
+    // 🌐 CONNECTION ERROR / BACKEND OFFLINE
     // -----------------------------
     if (error.request) {
       console.error("[NETWORK ERROR]", error.request);
@@ -92,7 +91,7 @@ api.interceptors.response.use(
     }
 
     // -----------------------------
-    // ⚠️ ERRO INESPERADO
+    // ⚠️ UNEXPECTED ERROR
     // -----------------------------
     console.error("[UNKNOWN ERROR]", error.message);
 

@@ -6,7 +6,7 @@ import "./styles/global.css";
 import { wakeUpBackend } from "./services/api";
 
 export default function App() {
-  // 🔥 acorda o backend quando o app abre
+  // Wakes up the backend when the app opens.
   useEffect(() => {
     wakeUpBackend();
   }, []);

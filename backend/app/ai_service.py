@@ -36,18 +36,13 @@ def clean_json_text(text: str) -> str:
     return text
 
 # -----------------------------
-# PRECISION METRICS EXTRACTOR (Ajuste para fidelidade dos dados)
+# PRECISION METRICS EXTRACTOR 
 # -----------------------------
 def get_precise_metrics(post_data: dict):
-    """
-    Tenta capturar o número de comentários de múltiplas fontes do payload 
-    para garantir que não estamos perdendo sub-comentários ou threads.
-    """
-    # Tenta o campo padrão
+
     likes = int(post_data.get("likes", 0))
     comments = int(post_data.get("comments", 0))
 
-    # Se o scraper enviou uma contagem detalhada (comum no Apify/Instagram)
     comments_count = post_data.get("commentsCount") or post_data.get("edge_media_to_parent_comment", {}).get("count")
     if comments_count and int(comments_count) > comments:
         comments = int(comments_count)
@@ -89,13 +84,10 @@ def call_gemini(prompt: str, image_url: str = None) -> dict:
         raise Exception(f"Falha no Gemini: {e}")
 
 # -----------------------------
-# ENGAGEMENT SCORE (Cálculo Profissional em %)
+# ENGAGEMENT SCORE 
 # -----------------------------
 def calculate_engagement(likes: int, comments: int):
-    """
-    Aplica um cálculo de engajamento relativo. 
-    Para portfólios, o ideal é simular uma taxa sobre alcance estimado ou interações totais.
-    """
+
     total_interactions = (likes * 1) + (comments * 2.5) # Peso maior para comentários
     if total_interactions == 0: return 0
     

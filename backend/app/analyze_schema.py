@@ -19,7 +19,7 @@ class Metrics(BaseModel):
 # -----------------------------
 class AnalyzeResponse(BaseModel):
     metrics: Metrics
-    display_url: Optional[str] = None  # URL da imagem de capa para o frontend/IA
+    display_url: Optional[str] = None  
     engagement_score: float
     viral_classification: str
     content_type: str

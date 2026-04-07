@@ -17,7 +17,7 @@ export default function ResultCard({ data }) {
         <h2 style={{ textAlign: 'center', marginBottom: '24px' }}>📊 Resultado da Análise</h2>
       </div>
 
-      {/* MÉTRICAS (Likes, Comentários, Engajamento - Estilo Azul Neon no CSS) */}
+      {/* METRICS (Likes, Comments, Engagement - Neon Blue Style in CSS) */}
       <div className="metrics">
         <div className="metric-card">
           <div className="metric-title">Likes</div>
@@ -41,7 +41,7 @@ export default function ResultCard({ data }) {
         </div>
       </div>
 
-      {/* CLASSIFICAÇÃO (Badges Verdes Suaves - Sem vermelho) */}
+      {}
       <div className="section" style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', justifyContent: 'center', marginTop: '20px' }}>
         <span className="badge">
           🔥 {viral_classification?.toUpperCase()}
@@ -72,9 +72,9 @@ export default function ResultCard({ data }) {
         </ul>
       </div>
 
-      {/* RECOMENDAÇÕES */}
+      {/* RECOMMENDATIONS */}
       <div className="section">
-        <h3>🚀 Próximos Passos</h3>
+        <h3>🚀 Recomendações </h3>
         <ul className="list">
           {recommendations && recommendations.length > 0 ? (
             recommendations.map((item, index) => (

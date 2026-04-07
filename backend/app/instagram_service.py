@@ -13,7 +13,7 @@ def fetch_instagram_data(url: str):
     if not settings.APIFY_API_KEY:
         raise Exception("APIFY_API_KEY não configurada no .env")
 
-    # Payload otimizado para posts específicos
+    # Payload optimized for specific posts
     payload = {
         "directUrls": [url],
         "resultsType": "posts",
@@ -41,8 +41,6 @@ def fetch_instagram_data(url: str):
 
         post = data[0]
 
-        # O Apify retorna 'likesCount' e 'commentsCount' como inteiros.
-        # 'displayUrl' é a imagem do post ou a capa (thumbnail) do Reels/Vídeo.
         return {
             "caption": post.get("caption", "") or "",
             "likes": int(post.get("likesCount", 0) or 0),

@@ -17,8 +17,8 @@ export default function Home() {
         </p>
       </div>
 
-      {/* INPUT - A 'key' dinâmica garante a limpeza. 
-          Quando 'data' muda para null no reset, o componente reinicia limpo.
+      {/* INPUT - A dynamic 'key' ensures cleanliness.
+          When 'data' changes to null on reset, the component restarts with a clean slate.
       */}
       <TextInput 
         key={data ? "analisado" : "novo"} 
@@ -26,7 +26,7 @@ export default function Home() {
         loading={loading} 
       />
 
-      {/* ERRO */}
+      {/* ERROR */}
       {error && (
         <div className="card" style={{ marginTop: 20 }}>
           <p style={{ color: "#ef4444" }}>❌ {error}</p>
@@ -36,7 +36,7 @@ export default function Home() {
       {/* LOADING */}
       {loading && <Loader />}
 
-      {/* RESULTADO */}
+      {/* RESULT */}
       {data && !loading && (
         <>
           <ResultCard data={data} />
